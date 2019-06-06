@@ -63,7 +63,6 @@ fi
 
 if [ -e "${prweb_war}" ]; then
    unzip -q -o -d ${CATALINA_HOME}/webapps/prweb ${CATALINA_HOME}/webapps/prweb.war
-   rm -rf ${CATALINA_HOME}/webapps/prweb.war
    mkdir -p ${CATALINA_HOME}/webapps/prweb/WEB-INF/classes
    chmod -R 775 ${CATALINA_HOME}/webapps/prweb/WEB-INF/classes
 else
