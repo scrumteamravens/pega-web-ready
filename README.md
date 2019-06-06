@@ -1,7 +1,7 @@
 Pega Docker Image
 ===========
 
-This project creates a docker image which runs the prweb web application within a Tomcat 7 container
+This project is a slim version of pega-web docker image that runs pega application expecting prweb.war to be mounted while performing docker run.  
 
 
 # Build
@@ -10,13 +10,27 @@ Docker (you may replace pega-tomcat with the name you wish to give the resulting
 
 `docker build -t pega-tomcat .`
 
+
 # Run
 
+**Mounting Options of prweb**
+
+1. Mount from host machine to `/usr/local/tomcat/webapps` in docker container using `-v argument` in `docker run` command
+
 ```bash
-$ docker run <image name>
+$ docker run -v /some/local/directory/prweb.war:/usr/local/tomcat/webapps/prweb.war:z <image name>
 ```
 
-You can make adjustments by overiding environmental variables
+2. Provide the URL where your prweb.war is located as an argument in `docker run` command
+
+
+```bash
+$ docker run -e PRWEB_URL="http://<hostname>" <image name>
+```
+
+**Using environment variables**
+
+You can make adjustments by overriding environmental variables
 ```bash
 $ docker run -e "DB_HOST=55.55.55.1" -e "DB_PORT=1234" <image name>[:tags]
 ```
@@ -72,6 +86,13 @@ Kafka data is saved to `/kafkadata` in the docker container. To persist the data
 | ---------------------------- | -------------------------------- | -------------- |
 | RULES_SCHEMA | | rules |
 | DATA_SCHEMA | | data |
+
+**prweb URL**
+
+|  Name                        | Purpose                          | Default        |
+| ---------------------------- | -------------------------------- | -------------- |
+| PRWEB_URL | Location where prweb.war is hosted | |
+
 
 **Customize the tomcat runtime**
 
